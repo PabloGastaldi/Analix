@@ -34,9 +34,6 @@ export function Hero() {
       {/* Editorial content — hard left, hugging the left edge on wide screens. */}
       <div className="relative w-full px-6 sm:px-10 lg:px-46">
         <div className="flex max-w-xl flex-col gap-6">
-          <span className="text-sm font-semibold tracking-wide text-primary">
-            Analix
-          </span>
           <h1 className="text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl">
             Tus datos.
             <br />
