@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Analix
 
-## Getting Started
+Subís un CSV/Excel, escribís un comentario en lenguaje natural y obtenés un dashboard
+con gráficos, un resumen escrito y un chat sobre tus datos. Con números exactos.
 
-First, run the development server:
+**Regla de oro:** el LLM planifica y traduce a SQL; DuckDB-WASM calcula en tu navegador.
+Nunca se le mandan filas al modelo — solo el esquema, las estadísticas y tu comentario.
+Los datos crudos no salen del navegador.
+
+## Stack
+
+Next.js (App Router) + TypeScript · Tailwind v4 + shadcn/ui · DuckDB-WASM · Recharts ·
+Zod · Zustand · Claude API (Sonnet 5 para plan/SQL). Ver [`CLAUDE.md`](CLAUDE.md) para el
+contexto completo.
+
+## Puesta en marcha
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrí el `localhost` que muestre la consola.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Variables de entorno
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Las llamadas a Claude corren **solo en el servidor** (route handlers en `app/api/*`).
+Necesitás una API key de Anthropic:
 
-## Learn More
+1. Creá un archivo `.env.local` en la raíz.
+2. Agregá tu key:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   ANTHROPIC_API_KEY=sk-ant-...
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Nunca** la prefijes con `NEXT_PUBLIC_` ni la expongas al cliente. `.env.local` ya está
+en `.gitignore`, así que la key no se commitea.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Comando | Qué hace |
+|---|---|
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Build de producción |
+| `npm run test` | Tests unitarios (Vitest) |
+| `npm run lint` | ESLint |
