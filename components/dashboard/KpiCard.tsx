@@ -25,25 +25,45 @@ export function KpiCard({
 }) {
   const showDelta = typeof delta === "number" && Number.isFinite(delta);
 
+  // Scale the type down as the number gets longer so large values (e.g.
+  // "$15.641.400.000") stay inside the card instead of overflowing its edge.
+  // `break-all` is the safety net for the extreme case; `title` keeps the full
+  // value one hover away.
+  const formatted = formatValue(value, valueFormat);
+  const valueSize =
+    formatted.length > 15
+      ? "text-base"
+      : formatted.length > 12
+        ? "text-lg"
+        : formatted.length > 9
+          ? "text-2xl"
+          : "text-3xl";
+
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex min-w-0 flex-col gap-2">
       <span className="text-sm font-medium text-muted-foreground">{label}</span>
-      <div className="flex items-baseline gap-2">
-        <span className="font-mono text-3xl font-semibold tabular-nums text-foreground">
-          {formatValue(value, valueFormat)}
+      {/* Block value (not a flex row) so a very long number wraps within the
+          card instead of overflowing its edge; `break-all` is the safety net. */}
+      <span
+        title={formatted}
+        className={cn(
+          "break-all font-mono font-semibold leading-tight tabular-nums text-foreground",
+          valueSize,
+        )}
+      >
+        {formatted}
+      </span>
+      {showDelta ? (
+        <span
+          className={cn(
+            "font-mono text-sm font-medium tabular-nums",
+            delta >= 0 ? "text-positive" : "text-negative",
+          )}
+        >
+          {delta >= 0 ? "+" : ""}
+          {formatValue(delta, valueFormat)}
         </span>
-        {showDelta ? (
-          <span
-            className={cn(
-              "font-mono text-sm font-medium tabular-nums",
-              delta >= 0 ? "text-positive" : "text-negative",
-            )}
-          >
-            {delta >= 0 ? "+" : ""}
-            {formatValue(delta, valueFormat)}
-          </span>
-        ) : null}
-      </div>
+      ) : null}
     </div>
   );
 }

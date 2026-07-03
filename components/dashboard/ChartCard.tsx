@@ -60,6 +60,29 @@ function numericChartData(rows: Row[], y: string | undefined): Row[] {
   return rows.map((row) => ({ ...row, [y]: toNumber(row[y]) }));
 }
 
+/**
+ * Value-axis tick: abbreviate big numbers so they don't overflow the axis
+ * gutter. es-AR-correct suffixes with a comma decimal — K = mil, M = millón
+ * (covers up to a billón, so 6e9 -> "6000 M", short and unambiguous), B =
+ * billón (1e12). Intl's compact notation mixes scales/casing, so we format
+ * explicitly.
+ */
+function formatAxisValue(value: unknown): string {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return value == null ? "" : String(value);
+  }
+  const abs = Math.abs(value);
+  const scaled = (divisor: number, suffix: string) => {
+    const n = value / divisor;
+    const digits = Math.abs(n) >= 100 ? 0 : 1;
+    return `${n.toFixed(digits).replace(/\.0$/, "").replace(".", ",")}${suffix}`;
+  };
+  if (abs >= 1e12) return scaled(1e12, " B");
+  if (abs >= 1e6) return scaled(1e6, " M");
+  if (abs >= 1e3) return scaled(1e3, " K");
+  return value.toLocaleString("es-AR", { maximumFractionDigits: 1 });
+}
+
 /** Temporal columns arrive as epoch-ms numbers — render them as readable dates. */
 function formatAxisTick(value: unknown): string {
   if (typeof value === "number" && value >= EPOCH_MS_FLOOR) {
@@ -225,7 +248,7 @@ export function ChartCard({ result }: { result: WidgetResult }) {
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
             <XAxis dataKey={x} tick={{ fontSize: 12 }} tickFormatter={formatAxisTick} />
-            <YAxis tick={{ fontSize: 12 }} />
+            <YAxis tick={{ fontSize: 12 }} width={68} tickFormatter={formatAxisValue} />
             <Tooltip
               formatter={tooltipFormatter(encoding.valueFormat)}
               labelFormatter={formatAxisTick}
@@ -243,7 +266,7 @@ export function ChartCard({ result }: { result: WidgetResult }) {
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
             <XAxis dataKey={x} tick={{ fontSize: 12 }} tickFormatter={formatAxisTick} />
-            <YAxis tick={{ fontSize: 12 }} />
+            <YAxis tick={{ fontSize: 12 }} width={68} tickFormatter={formatAxisValue} />
             <Tooltip
               formatter={tooltipFormatter(encoding.valueFormat)}
               labelFormatter={formatAxisTick}
@@ -271,7 +294,12 @@ export function ChartCard({ result }: { result: WidgetResult }) {
           <ScatterChart>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
             <XAxis dataKey={x} tick={{ fontSize: 12 }} tickFormatter={formatAxisTick} />
-            <YAxis dataKey={y} tick={{ fontSize: 12 }} />
+            <YAxis
+              dataKey={y}
+              tick={{ fontSize: 12 }}
+              width={68}
+              tickFormatter={formatAxisValue}
+            />
             <Tooltip formatter={tooltipFormatter(encoding.valueFormat)} />
             <Scatter data={data} fill={CHART_COLORS[0]} isAnimationActive={false} />
           </ScatterChart>
