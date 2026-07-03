@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Calistoga, Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,14 +10,6 @@ const inter = Inter({
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Display serif for landing headlines (design system: Calistoga + Inter pairing).
-const calistoga = Calistoga({
-  variable: "--font-display",
-  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -36,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${calistoga.variable} h-full antialiased motion-safe:scroll-smooth`}
+      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

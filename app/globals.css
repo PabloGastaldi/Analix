@@ -9,7 +9,6 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-heading: var(--font-sans);
-  --font-display: var(--font-display);
 
   /* Landing "electric editorial" system (design system) */
   --color-paper: var(--paper);
@@ -17,6 +16,7 @@
   --color-electric: var(--electric);
   --color-electric-2: var(--electric-2);
   --color-slate: var(--slate);
+  --color-type-accent: var(--type-accent);
 
   /* shadcn semantic slots -> our palette */
   --color-background: var(--background);
@@ -118,6 +118,7 @@
   --electric: #0047ff; /* signature accent */
   --electric-2: #4d7cff; /* signature gradient endpoint */
   --slate: #6b6b76; /* muted text on paper */
+  --type-accent: #908ffa; /* highlighted-word + numeral color */
 
   /* Radii + shadow */
   --radius: 0.75rem; /* base for shadcn component scale */
@@ -194,14 +195,6 @@
 }
 
 /* ── Landing "electric editorial" utilities ─────────────────────────────── */
-
-/* Signature electric gradient — only on text/graphic, never a background wash. */
-.text-electric-gradient {
-  background: linear-gradient(100deg, var(--electric) 0%, var(--electric-2) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
 
 /* Hard-offset block (no soft floating shadow) — crisp, confident. */
 .offset-block {

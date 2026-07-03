@@ -3,7 +3,7 @@ import { FileChips } from "./FileChips";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[560px] flex-1 items-center overflow-hidden lg:min-h-[760px]">
+    <section className="relative flex min-h-dvh flex-1 items-center overflow-hidden">
       {/*
         The dashboard illustration IS the product — shown at full opacity,
         anchored to the right edge and allowed to bleed off-screen so it reads

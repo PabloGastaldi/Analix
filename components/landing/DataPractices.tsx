@@ -1,3 +1,5 @@
+import { SectionLabel } from "./SectionLabel";
+
 const PRACTICES: { title: string; body: string; good: string; bad: string }[] = [
   {
     title: "Headers limpios en la primera fila",
@@ -68,11 +70,11 @@ export function DataPractices() {
     <section className="bg-ink text-white">
       <div className="mx-auto w-full max-w-6xl px-6 py-28 lg:px-10">
         <div className="flex max-w-2xl flex-col gap-5">
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-2">
-            Para que salga afilado
-          </span>
-          <h2 className="font-display text-4xl leading-[1.05] sm:text-5xl">
-            Entra ordenado, sale <span className="text-electric-gradient">afilado</span>.
+          <SectionLabel onDark>Preparar tus datos</SectionLabel>
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            Datos ordenados,
+            <br />
+            <span className="text-type-accent">mejores resultados</span>.
           </h2>
           <p className="text-lg leading-relaxed text-white/60">
             El tablero es tan bueno como los datos que le das. Estas seis cosas hacen

@@ -1,3 +1,5 @@
+import { SectionLabel } from "./SectionLabel";
+
 const STEPS: { n: string; title: string; body: string }[] = [
   {
     n: "01",
@@ -26,10 +28,8 @@ export function HowItWorks() {
     <section className="border-t-2 border-ink/10 bg-paper text-ink">
       <div className="mx-auto w-full max-w-6xl px-6 py-24 lg:px-10">
         <div className="flex flex-col gap-4">
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
-            Cómo funciona
-          </span>
-          <h2 className="max-w-2xl font-display text-4xl leading-[1.05] sm:text-5xl">
+          <SectionLabel>Cómo funciona</SectionLabel>
+          <h2 className="max-w-2xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Tres pasos. Cero fórmulas.
           </h2>
         </div>
@@ -42,7 +42,7 @@ export function HowItWorks() {
               // Diagonal stepping on wide screens — each step nudged lower.
               style={{ marginTop: `calc(var(--step-offset, 0px) * ${index})` }}
             >
-              <span className="font-display text-6xl leading-none text-electric-gradient">
+              <span className="text-6xl font-bold leading-none tracking-tight text-type-accent">
                 {step.n}
               </span>
               <h3 className="text-xl font-semibold">{step.title}</h3>

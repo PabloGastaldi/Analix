@@ -8,7 +8,7 @@ export function LandingCTA() {
     <section className="border-t-2 border-ink/10 bg-paper text-ink">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-6 py-24 lg:flex-row lg:items-end lg:justify-between lg:px-10">
         <div className="flex max-w-xl flex-col gap-4">
-          <h2 className="font-display text-4xl leading-[1.05] sm:text-5xl">
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Probá con tu propio archivo.
           </h2>
           <p className="text-lg leading-relaxed text-slate">

@@ -1,4 +1,5 @@
 import { DataFlowGraphic } from "./DataFlowGraphic";
+import { SectionLabel } from "./SectionLabel";
 
 /**
  * Landing section 1 — "Qué es". Asymmetric editorial layout: a Calistoga
@@ -10,13 +11,11 @@ export function WhatIsAnalix() {
     <section className="bg-paper text-ink">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-6 py-24 lg:grid-cols-12 lg:gap-16 lg:px-10">
         <div className="flex flex-col gap-6 lg:col-span-7">
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
-            Qué es
-          </span>
-          <h2 className="font-display text-4xl leading-[1.05] sm:text-5xl">
+          <SectionLabel>Qué es Analix</SectionLabel>
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Una planilla entra.
             <br />
-            Un <span className="text-electric-gradient">tablero</span> sale.
+            Un <span className="text-type-accent">tablero</span> sale.
           </h2>
           <p className="max-w-xl text-lg leading-relaxed text-slate">
             Analix convierte tu CSV o Excel en un tablero con gráficos, un resumen
