@@ -9,6 +9,14 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-heading: var(--font-sans);
+  --font-display: var(--font-display);
+
+  /* Landing "electric editorial" system (design system) */
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-electric: var(--electric);
+  --color-electric-2: var(--electric-2);
+  --color-slate: var(--slate);
 
   /* shadcn semantic slots -> our palette */
   --color-background: var(--background);
@@ -104,6 +112,13 @@
   --negative: #ef4444;
   --bg-glow: #a78bfa;
 
+  /* Landing "electric editorial" palette (5 exact hex) */
+  --paper: #f7f7f4; /* warm off-white section background */
+  --ink: #0a0a0f; /* near-black text + inverted section */
+  --electric: #0047ff; /* signature accent */
+  --electric-2: #4d7cff; /* signature gradient endpoint */
+  --slate: #6b6b76; /* muted text on paper */
+
   /* Radii + shadow */
   --radius: 0.75rem; /* base for shadcn component scale */
   --radius-inner: 12px;
@@ -175,5 +190,80 @@
   /* Numbers always tabular for KPI/data alignment */
   .tabular-nums {
     font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ── Landing "electric editorial" utilities ─────────────────────────────── */
+
+/* Signature electric gradient — only on text/graphic, never a background wash. */
+.text-electric-gradient {
+  background: linear-gradient(100deg, var(--electric) 0%, var(--electric-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hard-offset block (no soft floating shadow) — crisp, confident. */
+.offset-block {
+  box-shadow: 6px 6px 0 0 var(--ink);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.offset-block:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 0 var(--electric);
+}
+
+/* Electric underline sweep on links/steps. */
+.link-sweep {
+  background-image: linear-gradient(var(--electric), var(--electric));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 220ms ease;
+}
+.link-sweep:hover {
+  background-size: 100% 2px;
+}
+
+/* Animated data-flow stroke for the signature graphic. */
+@keyframes flow-draw {
+  from {
+    stroke-dashoffset: var(--flow-len, 240);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.flow-line {
+  stroke-dasharray: var(--flow-len, 240);
+  animation: flow-draw 2s ease forwards;
+}
+@keyframes rise-bar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.rise-bar {
+  transform-origin: bottom;
+  animation: rise-bar 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-line,
+  .rise-bar {
+    animation: none;
+  }
+  .flow-line {
+    stroke-dashoffset: 0;
+  }
+  .rise-bar {
+    transform: scaleY(1);
+  }
+  .offset-block,
+  .link-sweep {
+    transition: none;
   }
 }

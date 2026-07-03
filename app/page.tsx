@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useDataStore } from "@/lib/store";
-import { Hero } from "@/components/landing/Hero";
+import { LandingPage } from "@/components/landing/LandingPage";
 import { DataPreview } from "@/components/data/DataPreview";
 import { TableSwitcher } from "@/components/data/TableSwitcher";
 import { JoinPanel } from "@/components/data/JoinPanel";
@@ -21,8 +21,8 @@ export default function Home() {
 
   // Gate on data presence, not ingest status: once a table exists the dashboard
   // stays mounted, so adding another file (which flips status to "loading")
-  // never flashes back to the Hero.
-  if (tables.length === 0) return <Hero />;
+  // never flashes back to the landing.
+  if (tables.length === 0) return <LandingPage />;
 
   const hasWidgets = widgetResults.length > 0;
 
